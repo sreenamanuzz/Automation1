@@ -1,0 +1,772 @@
+addnewpage
+........................................
+
+package Antonmatrimony;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class addnewpage {
+	public WebDriver driver;
+	
+
+	By PlanName = By.id("name");
+	By Durartion = By.id("duration");
+
+	By ContactView = By.xpath("//*[@id=\"form-submit\"]/div/div[5]/table/tbody/tr[1]/td[2]/div/div/span[3]");
+	By ContactView2 = By.xpath("//*[@id=\"contact_view_response\"]/a[1]/i");
+	By VideoChat = By.xpath("//*[@id=\"form-submit\"]/div/div[5]/table/tbody/tr[4]/td[2]/div/div");
+	By VideoChat2 = By.xpath("//*[@id=\"video_chat_response\"]/a[1]/i");
+	By AddPlan = By.xpath("//*[@id=\"form-submit\"]/div/div[4]/button");
+
+	public addnewpage(WebDriver driver) {
+		this.driver = driver;
+	}
+
+	public void PlanName(String name) {
+		driver.findElement(PlanName).sendKeys(name);
+	}
+
+	public void Durartion() {
+		Select Duration = new Select(driver.findElement(Durartion));
+		Duration.selectByVisibleText("6 Months");
+	}
+
+	public void ContactView() {
+		driver.findElement(ContactView).click();
+	}
+
+	public void ContactView2() {
+		for (int i = 1; i <= 5; i++) {
+			driver.findElement(ContactView2).click();
+		}
+	}
+
+	public void VideoChat() {
+		driver.findElement(VideoChat).click();
+	}
+
+	public void VideoChat2() {
+		for (int i = 1; i <= 15; i++) {
+			driver.findElement(VideoChat2).click();
+		}
+	}
+
+	public void AddPlan() {
+		driver.findElement(AddPlan).click();
+	}
+
+	
+
+}
+..................................
+dashboard
+................
+package Antonmatrimony;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import com.google.common.io.Files;
+
+public class dashboard {
+public WebDriver driver;
+By moreinfo= By.xpath("/html/body/div/div[2]/section/div/div/div[3]/div/a");
+
+
+public dashboard(WebDriver driver) {
+	this.driver=driver;
+	
+}
+
+public void moreinfo() {
+	driver.findElement(moreinfo).click();
+}
+}
+......................................
+loginpage
+......................................
+package Antonmatrimony;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class loginpage {
+	public WebDriver driver;
+	By username =By.xpath("//input[@name='login']");
+	By  password=By.xpath("//input[@name='password']");
+	By  submit=By.xpath("//button[@type='submit']");
+	
+	public loginpage(WebDriver driver)
+	{
+		this.driver=driver;
+	}
+	
+	public void uname(String unam)
+	{
+		driver.findElement(username).sendKeys(unam);
+	}
+	
+	
+	
+	public void pswrd(String pwd)
+	{
+		driver.findElement(password).sendKeys(pwd);
+	}
+	
+	public void submit()
+	{
+		driver.findElement(submit).click();
+	}
+	
+	
+	
+	
+}
+....................................
+matrimony
+.....................
+package Antonmatrimony;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class matrimony {
+	
+	private static final String String = null;
+	public WebDriver driver;
+	public loginpage logobj;
+	public dashboard dashobj;
+	public SubscriptionPlanpage subobj;
+	public addnewpage addnewobj;
+	public dashboard memobj;
+ 
+  
+
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver","D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		driver= new ChromeDriver();
+		logobj=new loginpage(driver);
+		dashobj=new dashboard(driver);
+		subobj=new SubscriptionPlanpage(driver);
+		addnewobj=new addnewpage(driver);
+		memobj=new dashboard(driver);
+		driver.get("http://test.rogersoftapps.com/matrimony.admin/");
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		
+  }
+  @Test(priority=0)
+  public void f()
+  {
+	logobj.uname("rogersoftadmin");
+	logobj.pswrd("Pattern79*");
+	logobj.submit();
+  }
+  @Test(priority=1)
+  public void f1()
+  {
+	  
+	  
+	 dashobj.moreinfo();
+  }
+  
+  @Test(priority=2)
+  public void f2()
+  {
+	  subobj.addnew();  
+  } 
+  
+  @Test(priority=3)
+  public void f3()
+  {
+	  addnewobj.PlanName("lenovo");
+	  addnewobj.Durartion();
+	  addnewobj.ContactView();
+	  addnewobj.VideoChat();
+	  addnewobj.ContactView2();
+	  addnewobj.VideoChat2();
+	  addnewobj.AddPlan();
+   
+	  
+	 
+  }
+  
+ 
+ 
+	 
+
+  @AfterTest
+  public void afterTest() {
+	  //driver.close();
+  }
+
+}
+...................................
+register
+...................
+package Antonmatrimony;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class Register {
+	public WebDriver driver;
+	By registerfree= By.xpath("//*[@id=\"hero\"]/div/div/a");
+
+	public Register(WebDriver driver) {
+		this.driver=driver;
+		
+	}
+	public void registerfree() {
+		driver.findElement(registerfree).click();
+	}
+	}
+
+..................
+registerpage
+................
+package Antonmatrimony;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class registerpage {
+	public WebDriver driver;
+	By name =By.xpath("//input[@name='name']");
+	By profilefor=By.id("profile_for");
+	By fgender=By.xpath("//input[@id='female']");
+	By mgender=By.xpath("//input[@id='male']");
+	By email =By.id("email");
+	By code =By.id("phone_code");
+	By phonenumber =By.xpath("//*[@id=\"phone_number\"]");
+	By dob = By.xpath("//*[@id=\"dob\"]");
+	By country =By.xpath("//*[@id=\"country\"]");
+	By state =By.xpath("//*[@id=\"state\"]");
+	//By district1 =By.xpath("//select[@id='district']");
+	By place =By.id("place");
+	By religion =By.xpath("//*[@id=\"religion\"]");
+	By caste2 =By.xpath("//select[@id='caste']");
+	By formsubmit =By.xpath("/html/body/main/section[2]/div/div/div/div/form/div[1]/div[14]/label/input");
+	By register=By.xpath("//*[@id=\"form-submit\"]/div[2]/div/div/button");
+	
+	public registerpage(WebDriver driver)
+	{
+		this.driver=driver;
+	}
+	
+	public void gname(String nam)
+	{
+		driver.findElement(name).sendKeys(nam);
+	}
+	
+	public void profilefor() {
+		Select profile = new Select(driver.findElement(profilefor));
+		profile.selectByVisibleText("Sister");
+	}
+	
+	public void gender() {
+	
+			  WebElement fgender=driver.findElement(By.xpath("//input[@id='female']"));
+			  Actions action =new Actions(driver);
+			  action.moveToElement(fgender).click().build().perform();
+			  
+			  
+			 boolean isRadiobuttonSelected=fgender.isSelected();
+			 if(!isRadiobuttonSelected) {
+			  action.moveToElement(fgender).click().build().perform();
+			  System.out.println("Radiobutton Selected");
+			 }
+			 else {
+			  System.out.println("Radiobutton is already Selected");
+			 }
+			 }
+	
+		
+	
+	public void email(String em)
+	{
+		driver.findElement(email).sendKeys(em);
+	}
+	
+	public void code() {
+		Select ccode = new Select(driver.findElement(code));
+		ccode.selectByVisibleText("India (91)");
+	}
+	public void phonenumber(String pnum)
+	{
+		driver.findElement(phonenumber).sendKeys(pnum);
+	}
+	
+	public void Dob() throws Exception {
+		  Calendar calender = Calendar.getInstance();
+		  String targetDate = "31-Dec-2003";
+		  SimpleDateFormat targetDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
+		  Date formattedTargetDate;
+		  
+		   targetDateFormat.setLenient(false);
+		   formattedTargetDate = targetDateFormat.parse(targetDate);
+		   calender.setTime(formattedTargetDate);
+
+		   int targetDay = calender.get(Calendar.DAY_OF_MONTH);
+		   int targetMonth = calender.get(Calendar.MONTH);
+		   int targerYear = calender.get(Calendar.YEAR);
+
+		   driver.findElement(dob).click();
+		   String actualdate = driver.findElement(By.xpath("//div[@role='period']")).getText();
+		   calender.setTime(new SimpleDateFormat("MMMM yyyy").parse(actualdate));
+
+		   int actualtMonth = calender.get(Calendar.MONTH);
+		   int actualYear = calender.get(Calendar.YEAR);
+
+		   while (targetMonth < actualtMonth || targerYear < actualYear) {
+		    driver.findElement(By.xpath("//i[@class='gj-icon chevron-left']")).click();
+		    actualdate = driver.findElement(By.xpath("//div[@role='period']")).getText();
+		    calender.setTime(new SimpleDateFormat("MMMM yyyy").parse(actualdate));
+
+		    actualtMonth = calender.get(Calendar.MONTH);
+		    actualYear = calender.get(Calendar.YEAR);
+		  
+		   }
+		   driver.findElement(By.xpath("//div[normalize-space()='1']")).click();
+		   driver.findElement(By.xpath("//button[normalize-space()='Ok']")).click();
+	}
+
+	
+	public void country() {
+		Select cunry = new Select(driver.findElement(country));
+		cunry.selectByVisibleText("India");
+	}
+	public void state() {
+		Select krl = new Select(driver.findElement(state));
+		krl.selectByVisibleText("Kerala");
+	}
+//	public void district() {
+//   WebElement district= driver.findElement(district1);
+//   Select dis=new Select(district);
+//	dis.selectByVisibleText("Thrissur");
+//	}
+	public void place1(String plc)
+	{
+		driver.findElement(place).sendKeys(plc);
+	}
+	
+	public void religion() {
+		Select rgi = new Select(driver.findElement(religion));
+		rgi.selectByVisibleText("Hindu");
+	}
+	
+     public void caste() {
+    	 WebElement caste1= driver.findElement(caste2);
+    	   Select cst=new Select(caste1);
+	cst.selectByVisibleText("Brahmin");
+	}
+	
+	public void formsubmit() {
+		driver.findElement(formsubmit).click();
+	}
+	
+	public void register() {
+		driver.findElement(register).click();
+	}
+
+}
+...........................................
+registertng
+...........................................
+
+package Antonmatrimony;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class registertng {
+	public WebDriver driver;
+	public Register rtnobj;;
+	public registerpage regobj;
+	
+	
+	
+  
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver","D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		driver= new ChromeDriver();
+		rtnobj=new  Register(driver);
+		regobj=new registerpage(driver);
+		driver.get("http://test.rogersoftapps.com/matrimony/");
+  }
+  @Test(priority=0)
+  public void s() {
+	  rtnobj.registerfree();
+	  	  
+  }
+  @Test(priority=1)
+  public void t() throws Exception {
+	
+	  regobj.gname("amar");
+	  regobj.profilefor();
+	  regobj.gender();
+	  regobj.email("admin123@gmail.com");
+	  regobj.code();
+	  regobj.phonenumber("8012347654");
+	  regobj.Dob();
+	  regobj.country();
+	  regobj.state();
+	  //regobj.district();
+	  regobj.place1("poomagalam");
+	  regobj.religion();
+	  //regobj.caste();
+	  regobj.formsubmit();
+	  regobj.register();
+  
+  	  
+  }
+  
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}
+........................
+searchpage
+.....................................
+
+package Antonmatrimony;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class searchpage {
+	
+			
+			 public WebDriver driver;
+			 By regusers=By.xpath("/html/body/div/div[2]/section/div/div/div[1]/div/a") ;
+			 
+			 public searchpage(WebDriver driver)
+			 {
+			  this.driver=driver;
+			 }
+			 public void regusers()  
+			 {
+			  driver.findElement(regusers).click();
+			  
+			 }
+			 
+			}
+
+......................................................
+searchpartner
+........................................................
+package Antonmatrimony;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+public class searchpartner {
+	 public WebDriver driver;
+	 By search=By.xpath("//*[@id=\"example_filter\"]/label/input") ;
+	 
+	 public searchpartner(WebDriver driver)
+	 {
+	  this.driver=driver;
+	 }
+	 public void search(String cid) throws IOException 
+	 {
+	  driver.findElement(search).sendKeys(cid);
+	  File src=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	  FileUtils.copyFile(src,new File("./ScreenShots/img.png"));
+	 }
+	 
+	}
+
+................................................
+searchTng
+...................................................
+
+package Antonmatrimony;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class searchTng {
+	 public WebDriver driver;
+	  public loginpage  logobj;
+	  public searchpage regusersobj;
+	  public searchpartner searchobj; 
+	  
+ 
+  @BeforeTest
+  
+  public void beforeTest() {
+	  
+	  System.setProperty("webdriver.chrome.driver","D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		driver= new ChromeDriver();
+		logobj=new loginpage(driver);
+		regusersobj=new searchpage(driver);
+		searchobj=new searchpartner(driver);
+		driver.get("http://test.rogersoftapps.com/matrimony.admin/");
+		 driver.manage().window().maximize();
+		  driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+  }
+  
+  @Test(priority=0)
+  public void f1() throws InterruptedException {
+	  logobj.uname("rogersoftadmin");
+		logobj.pswrd("Pattern79*");
+		logobj.submit();
+ }
+  @Test(priority=1)
+  public void f2() throws InterruptedException {
+  regusersobj.regusers();
+ }
+  @Test(priority=2)
+  public void f3() throws InterruptedException, IOException {
+	  searchobj.search("Gopika");
+ }
+
+  @AfterTest
+  public void afterTest() {
+	 // driver.close();
+  }
+
+}
+.................................................
+SubscriptionPlanpage
+.................................................
+
+package Antonmatrimony;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class SubscriptionPlanpage {
+	public WebDriver driver;
+	By addnew= By.xpath("//i[@class='fs-fw fa fa-plus']");
+	
+	public SubscriptionPlanpage (WebDriver driver) {
+		this.driver=driver;
+		
+	}
+	public void addnew() {
+		driver.findElement(addnew).click();
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+careofmindssssssssssssssssssssssssssssssssss
+
+................................................
+
+login 
+.........................
+
+package careofminds;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class login {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe"); 
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://rogersoftapps.com/test_env/admin.careofminds.com/login");
+	}
+
+}
+...............................................
+careodmindtng
+.............................................
+
+package careofmindstestng;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class care {
+WebDriver driver;
+	
+	
+	@Parameters({"username","password"})
+  @Test
+  public void f(String username,String password ) {
+		 driver.findElement(By.id("email")).sendKeys(username);
+		 driver.findElement(By.id("password")).sendKeys(password);
+		 driver.findElement(By.linkText("Login")).click();
+  }
+  @BeforeClass
+  public void beforeClass() {
+		System.setProperty("webdriver.chrome.driver","D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		driver= new ChromeDriver();
+		driver.get("http://rogersoftapps.com/test_env/admin.careofminds.com/login");
+  }
+
+  @AfterTest
+  public void afterTest() {
+	 // driver.close();
+  }
+
+}
+....................................................... 
+   
+
+
+
+ticketbooking
+.....................................
+package ticketbook;
+
+import org.testng.annotations.Test;
+
+import Antonmatrimony.loginpage;
+
+import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class bookingpagetng {
+	
+	public WebDriver driver;
+	public roundpage round;
+  
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver","D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		driver= new ChromeDriver();
+		round=new roundpage(driver);
+		driver.get("https://in.via.com");
+  }
+  @Test
+  public void f() throws InterruptedException {
+	  round.no();
+	  round.round();
+	  round.From("BOM");
+	  round.To("CCJ");
+	 // round.D1();
+	  round.Adult();
+	  round.Infant();
+	  round.Search();
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}
+.....................................................
+
+
+package ticketbook;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class roundpage {
+	public WebDriver driver;
+	 By roundTrip = By.xpath("/html/body/div[4]/div[3]/div/form/div[3]/div/div[2]/label");
+	 By noThanks=By.xpath("//*[@id=\"wzrk-cancel\"]");
+	 By from=By.xpath("//*[@id=\"source\"]");
+	 By to=By.xpath("//*[@id=\"destination\"]");
+	// By d1=By.xpath("//*[@id=\"round-trip-panel\"]/div[4]/div[2]/div");
+	// By date1=By.xpath("//*[@id=\"depart-cal\"]/div[3]/div[2]/div[4]/div[5]");
+	// By d2=By.xpath("//*[@id=\"round-trip-panel\"]/div[5]/div[2]/div");
+	 By adult=By.xpath("/html/body/div[4]/div[3]/div/form/div[4]/div[4]/div[1]/div/div[3]");
+	   By infant=By.xpath("/html/body/div[4]/div[3]/div/form/div[4]/div[4]/div[3]/div/div[3]");
+	   By search=By.xpath("//*[@id=\"search-flight-btn\"]");
+	   
+	   public roundpage(WebDriver driver) {
+		   this.driver = driver;
+		  }
+	   public void no() {
+		   driver.findElement(noThanks).click();
+		  }
+	   
+	   public void round()throws InterruptedException {
+		   Thread.sleep(1000);
+		   driver.findElement(roundTrip).click();
+	   }
+	   public void From(String frm) {
+		   driver.findElement(from).sendKeys(frm);
+		  }
+	   public void To(String t) {
+		   driver.findElement(to).sendKeys(t);
+		  }
+//	   public void D1() {
+//		   driver.findElement(d1).click();
+//		   driver.findElement(date1).click();
+//	   }
+	   public void Adult() {
+		   for (int i = 1; i  <= 1; i++) {
+		    driver.findElement(adult).click();
+		   }
+		  }
+	   public void Infant() {
+		   for (int i = 1; i <= 1; i++) {
+		    driver.findElement(infant).click();
+		   }
+		  }
+	   
+	   public void Search()throws InterruptedException {
+		   Thread.sleep(1000);
+		   driver.findElement(search).click();
+		   
+		   }
+}
+

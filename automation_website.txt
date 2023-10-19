@@ -1,0 +1,544 @@
+BrowserInitiation
+...........................................
+
+
+package automation;
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC1_BrowserInitiation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://in.musafir.com/");
+		driver.manage().window().maximize();
+	}
+
+}
+
+..................................................
+alert 
+...............................................
+
+
+package automation;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class TC10_alert {
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		System.setProperty("webdriver.chrome.driver", "D:\\\\software\\\\drivers\\\\chromedriver_win32\\\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.get("https://demoqa.com/alerts");
+		driver.manage().window().maximize();
+		
+		
+
+		WebElement simpleAlertBtn = driver.findElement(By.id("alertButton"));
+		simpleAlertBtn.click();
+		Alert simpleAlert = driver.switchTo().alert();
+		simpleAlert.accept();
+//		-----------For checking Implicit Wait---------
+//		WebElement oneWayTrvlType_Lnk = driver.findElement(By.xpath("//input[@id='trip_one']/following-sibling::label"));
+//		oneWayTrvlType_Lnk.click();
+		
+		WebElement simpleTimerAlertBtn = driver.findElement(By.id("timerAlertButton"));
+		simpleTimerAlertBtn.click();
+//		Thread.sleep(4000);
+		
+		WebDriverWait wait = new WebDriverWait(driver,60);
+        wait.until(ExpectedConditions.alertIsPresent());
+        
+        
+		Alert simpleTimerAlert = driver.switchTo().alert();
+		simpleTimerAlert.accept();
+		
+		
+		WebElement confirmAlertBtn = driver.findElement(By.id("confirmButton"));
+		confirmAlertBtn.click();
+		Alert confirmAlertAccept = driver.switchTo().alert();
+		String alertText = confirmAlertAccept.getText();
+		System.out.println("Confirmation alert text is>>>> " + alertText);
+		confirmAlertAccept.accept();
+//		confirmAlertBtn.click();
+//		Alert confirmAlertDismiss = driver.switchTo().alert();
+//		confirmAlertDismiss.dismiss();
+		
+		WebElement promptAlertBtn = driver.findElement(By.id("promtButton"));
+		promptAlertBtn.click();
+		Alert promptAlert = driver.switchTo().alert();
+		String alertText1 = promptAlert.getText();
+		System.out.println("Prompt alert text is>>>> " + alertText1);
+		promptAlert.sendKeys("Test User");
+		promptAlert.accept();
+
+		Thread.sleep(5000);
+		driver.close();
+	}
+
+}
+........................................................
+VerifyCommands
+.......................................................
+
+
+package automation;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC2_VerifyCommands {
+	public static void main(String[] args) {
+	System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+	WebDriver driver = new ChromeDriver();
+   String baseUrl=("https://in.musafir.com/");
+    driver.get(baseUrl);
+    driver.manage().window().maximize();
+	String pageTitle = driver.getTitle();
+	System.out.println("title is:" + pageTitle);
+	System.out.println("string length is "+pageTitle.length());
+	String actualURL = driver.getCurrentUrl();
+	if(actualURL.equalsIgnoreCase(baseUrl))
+	{
+		System.out.println(" url is expected");
+	}
+	else
+	{
+		System.out.println(" url is not expected");
+	}
+	String pageSource=driver.getPageSource();
+	if(pageSource.length()>1000)
+	{
+		System.out.println("length is greater than 1000");
+	}
+	else
+	{
+		System.out.println("length is not greater than 1000");
+	}
+	driver.close();
+	
+}
+}
+..............................................................
+backwrdforwrd
+.......................................................
+
+
+package automation;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC3_backwrdforwrd {
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://in.musafir.com/");
+		
+		//navigate to "https://www.google.com/" 
+		
+		driver.navigate().to("https://www.google.com/");
+		String Url1 = driver.getCurrentUrl();
+		
+		if(Url1.contains("google"))
+		{
+			System.out.println("Url " + Url1 + "it contains google");
+		}
+		else
+		{
+	   
+			System.out.println("Url " + Url1 + "it  does'nt contains google"); 
+	}
+		
+		driver.navigate().back();
+		
+		String Url2 = driver.getCurrentUrl();
+		if(Url2.contains("musafir")) 
+		{
+			System.out.println("Url " + Url2 + "it contains musafir");
+		}
+		else { 
+			System.out.println("Url" + Url2 + "it does'nt contains musafir");
+		}
+		
+		
+		
+		
+		
+		driver.navigate().forward();
+		
+		String Url3 = driver.getCurrentUrl();
+		if(Url3.contains("google"))
+		{
+			System.out.println("Url " + Url3 + "it contains google");
+		}
+		else {
+			System.out.println("Url " + Url3 + "it  does'nt contains google");
+		}
+		
+	
+}
+}
+.........................................................
+get
+.......................................................
+
+package automation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC4_get {
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://in.musafir.com/");
+driver.manage().window().maximize();
+		
+		WebElement RtpcrImg = driver.findElement(By.xpath("//p[contains(text(),'RT-PCR')]/preceding-sibling::img"));
+		RtpcrImg.click();
+WebElement pcrText = driver.findElement(By.xpath("//h1[contains(text(),'Get your PCR Test done')]"));
+		String elementText = pcrText.getText();
+		if(elementText.contains("PCR Test")) {										
+			System.out.println("Given page contains PCR Test");
+		}
+		else {
+			System.out.println("Given page doesn't contains PCR Test");
+		}
+
+	}
+}
+.........................................................
+list
+........................................................
+
+package automation;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC4_list {
+	
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://in.musafir.com/");
+		
+		WebElement oneWayTrvlType_Lnk = driver.findElement(By.xpath("//input[@id='trip_one']/following-sibling::label"));
+		oneWayTrvlType_Lnk.click();
+		
+		WebElement fromLoc = driver.findElement(By.xpath("//input[@name='Origin']"));
+		fromLoc.clear();
+		fromLoc.sendKeys("Kochi, India (COK)");
+	
+		WebElement toLoc = driver.findElement(By.xpath("//input[@name='Destination']"));
+		toLoc.clear();
+		toLoc.sendKeys("Mumbai, India (BOM)");
+		
+		// selecting date from the calendar
+		  WebElement startDate = driver.findElement(By.name("StartDate"));
+		  startDate.clear();
+		  startDate.sendKeys("20/12/21");
+		WebElement findflights = driver.findElement(By.xpath("//i[contains(text(),'Find flights')]/parent :: a"));
+		  findflights.click();
+		  
+		  // Print the number of Flights leaving 
+		  List<WebElement> flightList = driver.findElements(By.xpath("//li[contains(@class,'flightItem')]"));
+		  int count = flightList.size();
+		  System.out.println("Total number of Flights leaving on 20/12/21 : " + count );
+		  
+		 driver.quit();
+		
+	
+		
+		
+}
+}
+....................................................
+hw
+....................................................
+
+package automation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC5_hw {
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://in.musafir.com/");
+		
+		WebElement oneWayTrvlType_Lnk = driver.findElement(By.xpath("//input[@id='trip_one']/following-sibling::label"));
+		oneWayTrvlType_Lnk.click();
+		WebElement fromLoc = driver.findElement(By.xpath("//input[@name='Origin']"));
+		fromLoc.clear();
+		fromLoc.sendKeys("Kochi, India (COK)");
+	
+		WebElement toLoc = driver.findElement(By.xpath("//input[@name='Destination']"));
+		toLoc.clear();
+		toLoc.sendKeys("Mumbai, India (BOM)");
+		
+		// selecting date from the calendar
+		  WebElement startDate = driver.findElement(By.name("StartDate"));
+		  startDate.clear();
+		  startDate.sendKeys("20/12/21");
+		WebElement findflights = driver.findElement(By.xpath("//i[contains(text(),'Find flights')]/parent :: a"));
+		  findflights.click();
+		  
+		WebElement change = driver.findElement(By.xpath("//a[@id='changeFlight']"));
+			 change.click();
+			  
+			 
+		WebElement oneway = driver.findElement(By.xpath("//input[@id='trip_one']"));
+		String oneWayRadio = oneway.getAttribute("class");
+		boolean oneWaySelected = oneWayRadio.contains("checked");
+		System.out.println(">>>>>>>"+oneWaySelected);
+					if(oneWaySelected)
+							{
+						System.out.println("onway selected");
+						
+							}
+					else {
+						System.out.println("not selected");
+					}
+					  
+}
+}
+............................................................
+dropdown
+....................................................
+
+package automation;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class TC6_dropdown {
+	 public static void main(String[] args) {
+		  // TODO Auto-generated method stub
+		  System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		  WebDriver driver = new ChromeDriver();
+		  
+		  
+		// Launch Musafir Application
+		  driver.get("https://in.musafir.com/");
+		  driver.manage().window().maximize();
+		  
+		  WebElement oneWay = driver.findElement(By.xpath("//input[@id='trip_one']/following-sibling::label"));
+		  oneWay.click();
+		//Enter From-'Kochi, India (COK)' and To-'Mumbai, India (BOM)'
+		  WebElement fromLoc = driver.findElement(By.name("Origin"));
+		  fromLoc.clear();
+		  fromLoc.sendKeys("Kochi, India (COK)");
+		  WebElement destLoc = driver.findElement(By.name("Destination"));
+		  destLoc.clear();
+		  destLoc.sendKeys("Mumbai, India (BOM)");
+		  
+
+		// selecting date from the calendar
+		  WebElement startDate = driver.findElement(By.name("StartDate"));
+		  startDate.clear();
+		  startDate.sendKeys("20/12/21");
+		       
+		  
+		  //Dropdown
+		  WebElement numberOfAdults = driver.findElement(By.xpath("//select[@name='AdultsFlight']"));
+		  Select adult = new Select(numberOfAdults);
+		  adult.selectByVisibleText("5 adults");
+		  
+		  WebElement numberOfChildren = driver.findElement(By.xpath("//select[@name='ChildrenFlight']"));
+		  Select children = new Select(numberOfChildren);
+		  children.selectByValue("2");
+		  
+		  WebElement numberOfInfants = driver.findElement(By.xpath("//select[@name='InfantsFlight']"));
+		  Select infants = new Select(numberOfInfants);
+		  infants.selectByIndex(1);
+		  
+		  //clicking on find flights
+		   WebElement findflights = driver.findElement(By.xpath("//i[contains(text(),'Find flights')]/parent :: a"));
+		   findflights.click();
+		  
+		  // Print the number of Flights leaving 
+		  
+		    List<WebElement> flightList =driver.findElements(By.xpath("//li[contains(@class,'flightItem')]")); 
+		    int  count = flightList.size();
+		     System.out.println("Total number of Flights leaving on 20/12/21 : " + count);
+		    
+		   // driver.quit();
+		   
+		   
+		 }
+
+		}
+.....................................................
+action
+..................................................
+
+package automation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class TC7_action {
+	 public static void main(String[] args) {
+		  // TODO Auto-generated method stub
+		  System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		  WebDriver driver = new ChromeDriver();
+		  
+		  driver.get("https://in.musafir.com/");
+		  driver.manage().window().maximize();
+		
+		  Actions act = new Actions(driver);
+		  WebElement mouse = driver.findElement(By.xpath("//li[@id='ctl00_ctrlHeader_ltlCountryClass']/a"));
+		act.moveToElement(mouse).build().perform();
+		  WebElement selectcountry = driver.findElement(By.xpath("//li[@id='ctl00_ctrlHeader_ltlCountryClass']//a[contains(text(),'UAE')]")); 
+		  selectcountry.click();
+}
+}
+...................................................
+action2
+....................................................
+package automation;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC8_action2 {
+	 public static void main(String[] args) {
+		  // TODO Auto-generated method stub
+		  System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		  WebDriver driver = new ChromeDriver();
+		  driver.get("https://in.musafir.com/");
+		  driver.manage().window().maximize();
+			
+			WebElement oneWayTrvlType_Lnk = driver.findElement(By.xpath("//input[@id='trip_one']/following-sibling::label"));
+			oneWayTrvlType_Lnk.click();
+			
+			WebElement fromLoc = driver.findElement(By.xpath("//input[@name='Origin']"));
+			fromLoc.clear();
+			fromLoc.sendKeys("Kochi, India (COK)");
+		
+			WebElement toLoc = driver.findElement(By.xpath("//input[@name='Destination']"));
+			toLoc.clear();
+			toLoc.sendKeys("Mumbai, India (BOM)");
+			
+			// selecting date from the calendar
+			  WebElement startDate = driver.findElement(By.name("StartDate"));
+			  startDate.clear();
+			  startDate.sendKeys("20/12/21");
+			WebElement findflights = driver.findElement(By.xpath("//i[contains(text(),'Find flights')]/parent :: a"));
+			  findflights.click();
+			  
+		  List<WebElement> flightList = driver.findElements(By.xpath("//li[contains(@class,'flightItem')]"));
+			  int count = flightList.size();
+			  System.out.println("Total number of Flights leaving on 20/12/21 : " + count );
+			  
+			String from ="COK";
+			String to ="BOM";
+			
+			for(int i=1;i<flightList.size();i++) {
+				WebElement flightfrom = driver.findElement(By.xpath("//li[contains(@original-title,'Kochi International Airport, Kochi, India')][@class='first tooltip']"));
+				String fromtext =flightfrom.getText();
+				WebElement flightto = driver.findElement(By.xpath("//li[contains(@original-title,'Chhatrapati Shivaji Airport, Mumbai, India')][@class='tooltip last']"));
+				String totext =flightto.getText();
+				
+				if(fromtext.equals(from) && (totext.equals(to)) ){
+					System.out.println( +i +" flight begin from " +from + " and end at " +to );
+					
+				}
+				else {
+					System.out.println(" flight not begin from kochi " +from + " and  not end at mumbai " +to );
+				}
+				
+			}
+			  
+}
+}
+......................................................
+frame
+........................................
+package automation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TC8_frame {
+	 public static void main(String[] args) throws InterruptedException {
+		  // TODO Auto-generated method stub
+		  System.setProperty("webdriver.chrome.driver", "D:\\software\\drivers\\chromedriver_win32\\chromedriver.exe");
+		  WebDriver driver = new ChromeDriver();
+		  driver.get("https://in.musafir.com/");
+		  driver.manage().window().maximize();
+		  
+			WebElement blogs = driver.findElement(By.xpath("//ul[@id='primaryNavigation']//a[contains(text(),'Blogs')]"));
+			blogs.click();
+			Thread.sleep(2000);
+			//WebElement contactUs = driver.findElement(By.xpath("//span[text()='Contact us']"));
+		//	contactUs.click();
+			
+					//First iFrame  
+					  WebElement frameContactUs = driver.findElement(By.xpath("//iframe[@id='launcher-frame']")); 
+					//  driver.switchTo().frame("launcher-frame");
+					//  driver.switchTo().frame(0);
+					  driver.switchTo().frame(frameContactUs);
+					  WebElement contactUs = driver.findElement(By.xpath("//span[text()='Contact us']"));
+					  contactUs.click();
+					  driver.switchTo().defaultContent();
+
+					//Second iFrame
+					//Thread.sleep(1000);
+					  WebElement frame_Close = driver.findElement(By.xpath("//iframe[@id='widget-frame']"));
+					  driver.switchTo().frame(frame_Close);
+					  WebElement closeContactUs = driver.findElement(By.xpath("//div[contains(@class,'Close')]"));
+					  Thread.sleep(1000);
+					  closeContactUs.click();
+					  driver.switchTo().defaultContent();
+					  WebElement homeLogo = driver.findElement(By.xpath("(//a[contains(@href,'in.musafir.com')]/img)[1]"));
+					  homeLogo.click();
+						((JavascriptExecutor) driver).executeScript("arguments[0].click()", homeLogo);
+					        Thread.sleep(3000);
+					  driver.quit();
+					 }
+					
+}
+...................................................
